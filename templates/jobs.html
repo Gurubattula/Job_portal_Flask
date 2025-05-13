@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4">Available Jobs</h2>
+
+    {% if jobs %}
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            {% for job in jobs %}
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ job[1] }}</h5>
+                            <p class="card-text">{{ job[2] }}</p>
+                            <p><strong>Location:</strong> {{ job[3] }}</p>
+
+                            {% if session['role'] == 'user' %}
+                                <form action="{{ url_for('apply_job', job_id=job[0]) }}" method="POST" enctype="multipart/form-data">
+                                    <div class="mb-2">
+                                        <label for="resume{{ job[0] }}" class="form-label">Upload Resume</label>
+                                        <input type="file" name="resume" id="resume{{ job[0] }}" class="form-control" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Apply</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-warning">No jobs available at the moment.</div>
+    {% endif %}
+</div>
+{% endblock %}

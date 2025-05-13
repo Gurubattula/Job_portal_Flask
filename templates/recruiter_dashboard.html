@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruiter Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ user[1] }}!</h1> <!-- Display recruiter's name -->
+    
+    <h2>Your Posted Jobs</h2>
+    <table>
+        <tr>
+            <th>Job Title</th>
+            <th>Description</th>
+            <th>Location</th>
+        </tr>
+        {% for job in jobs %}
+        <tr>
+            <td>{{ job[1] }}</td>  <!-- job[1] is the title of the job -->
+            <td>{{ job[2] }}</td>  <!-- job[2] is the description -->
+            <td>{{ job[3] }}</td>  <!-- job[3] is the location -->
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <a href="{{ url_for('post_job') }}">Post a New Job</a> <!-- Link to post a new job -->
+</body>
+</html>

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4">Applications for Job: <span class="text-success">{{ job_title }}</span></h2>
+
+    {% if applications %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped align-middle">
+                <thead class="table-success">
+                    <tr>
+                        <th>Applicant Name</th>
+                        <th>Email</th>
+                        <th>Resume</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for app in applications %}
+                        <tr>
+                            <td>{{ app[0] }}</td>
+                            <td>{{ app[1] }}</td>
+                            <td>{{ app[2] | basename }}</td>
+                            <td>
+                                <a href="{{ url_for('download_resume', filename=app[2] | basename) }}" class="btn btn-sm btn-outline-primary">Download</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">No applications received for this job yet.</div>
+    {% endif %}
+</div>
+{% endblock %}
